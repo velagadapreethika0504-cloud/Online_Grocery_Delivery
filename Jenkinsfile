@@ -1,31 +1,25 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER = '"C:\\Users\\PREETHIKA\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe"'
-    }
-
     stages {
-
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/velagadapreethika0504-cloud/Online_Grocery_Delivery.git'
+                checkout scm
             }
         }
 
         stage('Docker Build') {
             steps {
-                bat "${DOCKER} build -t freshcart:1.0 ."
+                bat 'docker build --no-cache -t freshcart:7.0 .'
             }
         }
 
         stage('Deploy') {
             steps {
-                bat """
-                ${DOCKER} rm -f freshcart-updated 2>NUL
-                ${DOCKER} run -d -p 8082:80 --name freshcart-updated freshcart:1.0
-                """
+                bat '''
+                docker rm -f freshcart-v7 2>NUL
+                docker run -d -p 8082:80 --name freshcart-v7 freshcart:7.0
+                '''
             }
         }
     }

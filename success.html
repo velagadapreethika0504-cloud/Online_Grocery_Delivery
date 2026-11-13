@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Successful - FreshCart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>FreshCart</h1>
+</header>
+
+<div class="delivery-box">
+    <h2>🎉 Order Placed Successfully!</h2>
+    <div id="customerDetails"></div>
+    <h3>Total Amount: ₹<span id="orderTotal"></span></h3>
+    <button onclick="continueShopping()">Continue Shopping</button>
+</div>
+
+<script>
+const customer = JSON.parse(localStorage.getItem("freshCartCustomer") || "{}");
+
+document.getElementById("customerDetails").innerHTML = `
+    <p><b>Name:</b> ${customer.name || ""}</p>
+    <p><b>Mobile:</b> ${customer.mobile || ""}</p>
+    <p><b>Address:</b> ${customer.address || ""}</p>
+    <p><b>City:</b> ${customer.city || ""}</p>
+    <p><b>Pincode:</b> ${customer.pincode || ""}</p>
+`;
+
+document.getElementById("orderTotal").textContent =
+    localStorage.getItem("freshCartTotal") || "0";
+
+function continueShopping() {
+    localStorage.removeItem("freshCartItems");
+    localStorage.removeItem("freshCartTotal");
+    localStorage.removeItem("freshCartCustomer");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

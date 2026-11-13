@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FreshCart - Delivery Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>FreshCart</h1>
+    <p>Delivery Details</p>
+</header>
+
+<div class="delivery-box">
+    <h2>Enter Delivery Details</h2>
+
+    <form id="deliveryForm">
+        <input id="customerName" placeholder="Your Name" required>
+        <input id="mobile" placeholder="Mobile Number" maxlength="10" required>
+        <textarea id="address" placeholder="Delivery Address" required></textarea>
+        <input id="city" placeholder="City" required>
+        <input id="pincode" placeholder="Pincode" maxlength="6" required>
+        <button type="submit">Confirm Order</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("deliveryForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const mobile = document.getElementById("mobile").value;
+    const pincode = document.getElementById("pincode").value;
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        alert("Enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    if (!/^[0-9]{6}$/.test(pincode)) {
+        alert("Enter a valid 6-digit pincode.");
+        return;
+    }
+
+    const customer = {
+        name: document.getElementById("customerName").value,
+        mobile: mobile,
+        address: document.getElementById("address").value,
+        city: document.getElementById("city").value,
+        pincode: pincode
+    };
+
+    localStorage.setItem("freshCartCustomer", JSON.stringify(customer));
+    window.location.href = "success.html";
+});
+</script>
+
+</body>
+</html>
