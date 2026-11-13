@@ -10,15 +10,15 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                bat 'docker build --no-cache -t freshcart:7.0 .'
+                bat '"C:\\Users\\PREETHIKA\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build --no-cache -t freshcart:7.0 .'
             }
         }
 
         stage('Deploy') {
             steps {
                 bat '''
-                docker rm -f freshcart-v7 2>NUL
-                docker run -d -p 8082:80 --name freshcart-v7 freshcart:7.0
+                "C:\\Users\\PREETHIKA\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" rm -f freshcart-v7 2>NUL
+                "C:\\Users\\PREETHIKA\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" run -d -p 8082:80 --name freshcart-v7 freshcart:7.0
                 '''
             }
         }
